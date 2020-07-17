@@ -59,4 +59,36 @@ public class UserDAO {
 
 		return user;
 	}
+
+	public void registerUser(User registerUser) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		currentSession.saveOrUpdate(registerUser);
+		
+	}
+
+	public boolean isThereAUser(String username) {
+		
+		boolean isThereAUser = false;
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Query<User> query = currentSession.createQuery("from User where username=:username", User.class);
+		query.setParameter("username", username);
+		
+		User user = null;
+		
+		try {
+			user = query.getSingleResult();
+		} catch (Exception e) {
+			System.err.println("KEIN USER MIT DIESEM BENUTZERNAMEN GEFUNDEN");
+		}
+		
+		if (user != null) {
+			isThereAUser = true;
+		}
+		
+		return isThereAUser;
+	}
 }

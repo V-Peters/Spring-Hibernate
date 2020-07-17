@@ -28,4 +28,14 @@ public class UserService {
 	public User getUser(int userId) {
 		return userDAO.getUser(userId);
 	}
+
+	@Transactional
+	public void registerUser(User registerUser) {
+		userDAO.registerUser(registerUser);
+	}
+
+	@Transactional
+	public boolean isThereAUser(String username) {
+		return userDAO.isThereAUser(username);
+	}
 }

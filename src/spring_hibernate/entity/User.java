@@ -23,8 +23,8 @@ public class User {
 	private String password;
 	
 //	fake Zuweisung, muss aber sein, da eine Variable hier nicht ohne @Column stehen darf. also wir hier ein Wert zugewiesen, der schwachsinnig ist und eh nie benutzt wird
-	@Column(name = "created")
-	private String passwordCheck;
+//	@Column(name = "created")
+//	private String passwordCheck;
 	
 	@Column(name = "firstname")
 	private String firstname;
@@ -51,6 +51,10 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
+	public User(String username) {
+		this.username = username;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -75,13 +79,13 @@ public class User {
 		this.password = password;
 	}
 
-	public String getPasswordCheck() {
-		return passwordCheck;
-	}
+//	public String getPasswordCheck() {
+//		return passwordCheck;
+//	}
 
-	public void setPasswordCheck(String passwordCheck) {
-		this.passwordCheck = passwordCheck;
-	}
+//	public void setPasswordCheck(String passwordCheck) {
+//		this.passwordCheck = passwordCheck;
+//	}
 	
 	public String getFirstname() {
 		return firstname;
@@ -123,11 +127,11 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", passwordCheck="
-				+ passwordCheck + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", company=" + company + ", isAdmin=" + isAdmin + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", username=" + username + ", password=" + password + ", passwordCheck="
+//				+ passwordCheck + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+//				+ ", company=" + company + ", isAdmin=" + isAdmin + "]";
+//	}
 	
 }

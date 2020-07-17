@@ -22,7 +22,6 @@
 	
 	<form:form action="loginUser" modelAttribute="loginUser" method="POST">
 		<form:hidden path="id" />
-		<form:hidden path="passwordCheck" />
 		<form:hidden path="firstname" />
 		<form:hidden path="lastname" />
 		<form:hidden path="email" />
