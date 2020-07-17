@@ -24,8 +24,8 @@ public class UserService {
 		return userDAO.getUser(tempUser);
 	}
 
-//	@Transactional
-//	public User getUser(int userId) {
-//		return userDAO.getUser(userId);
-//	}
+	@Transactional
+	public User getUser(int userId) {
+		return userDAO.getUser(userId);
+	}
 }

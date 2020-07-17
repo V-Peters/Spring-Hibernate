@@ -3,10 +3,11 @@ package spring_hibernate.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
-import org.openqa.selenium.html5.SessionStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,45 +32,31 @@ public class MeetingController {
 	@Autowired
 	private MeetingUserService meetingUserService;
 	
-	private UserController userController;
-	private spring_hibernate.session_storage.SessionStorage sessionStorage;
-	
-//	@GetMapping("/list")
-//	public String callListMeetings(@ModelAttribute("user") User user, Model model) {
-//		System.out.println("test:  " + user.toString());
-//		model.addAttribute("user", user);
-//		return "meeting/call-list-meetings";
-//	}
+	@Autowired
+	HttpServletRequest request;
 	
 	@GetMapping("/list")
-	public String listMeetings(@ModelAttribute("user") User user, Model model, RedirectAttributes redirectAttribute) {
-//		System.out.println("SessionStorage.getID: " + sessionStorage.getItemFromSessionStorage("id"));
-		System.out.println("userId: " + user.getId());
-		System.out.println("userIsAdmin: " + user.getIsAdmin());
+	public String listMeetings(Model model, RedirectAttributes redirectAttribute, HttpServletRequest request) {
+		
+		User user = (User)request.getSession().getAttribute("user");
+		
 		List<Meeting> meetings = new ArrayList<Meeting>();
 		List<Integer> meetingsSignedUpTo = new ArrayList<Integer>();
-		System.out.println("vor if abfrage");
 		if ("0".equals(user.getIsAdmin())) {
-			System.out.println("GetMeetingsForUser wird aufgerufen");
 			meetingsSignedUpTo = meetingUserService.getMeetingsForUser(user.getId());
-//			for (int i = 0; i < meetingsSignedUpTo.size(); i++) {
-//				Meeting tempMeeting = meetingService.getMeeting(meetingsSignedUpTo.get(i));
-//				System.out.println(tempMeeting.toString());
-//			}
 		}
 		meetings = meetingService.getMeetings();
-//		User user = userController.getUser(userId);
 
 		model.addAttribute("meetings", meetings);
 		model.addAttribute("meetingsSignedUpTo", meetingsSignedUpTo);
-//		model.addAttribute("user", user);
-		redirectAttribute.addFlashAttribute("user", user);
-		System.out.println("Name in list: " + user.getUsername());
+		model.addAttribute("user", user);
+		
 		return "meeting/list-meetings";
 	}
 	
 	@GetMapping("/showAddPage")
 	public String addMeeting(Model model) {
+		
 		model.addAttribute("meeting", new Meeting());
 		
 		return "meeting/save-meeting";
@@ -103,11 +90,9 @@ public class MeetingController {
 	
 	@GetMapping("/changeDisplay")
 	public String changeDisplay(@ModelAttribute("user") User user, @RequestParam("meetingId") int id, @RequestParam("displayValue") boolean display, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		System.out.println("Name in changeDisplay: " + user.getUsername());
 		meetingService.changeDisplay(id, display);
 		
 		redirectAttributes.addAllAttributes(request.getParameterMap());
-//		model.addAttribute("user", user);
 		
 		return "redirect:/meeting/list";
 	}
