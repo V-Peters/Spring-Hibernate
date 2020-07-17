@@ -22,6 +22,11 @@ public class MeetingUser {
 	@Column(name = "id_user")
 	private int idUser;
 
+	public MeetingUser(int userId, int meetingId) {
+		this.idUser = userId;
+		this.idMeeting = meetingId;
+	}
+
 	public int getId() {
 		return id;
 	}

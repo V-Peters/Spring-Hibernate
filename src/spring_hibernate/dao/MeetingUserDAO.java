@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import spring_hibernate.entity.MeetingUser;
 import spring_hibernate.entity.User;
 
 @Repository
@@ -44,13 +45,20 @@ public class MeetingUserDAO {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		Query query = currentSession.createQuery("insert into MeetingUser (idMeeting, idUser)");
+		MeetingUser meetingUser = new MeetingUser(userId, meetingId);
 		
-		System.out.println("changeSignUp wird aufgerufen");
+		currentSession.saveOrUpdate(meetingUser);
+		
 	}
 
 	public void signOut(int userId, int meetingId) {
-		// TODO Auto-generated method stub
+
+		Session currentSession = sessionFactory.getCurrentSession();
 		
+		Query query = currentSession.createQuery("delete from MeetingUser where idUser=:userId and idMeeting=:meetingId");
+		query.setParameter("userId", userId);
+		query.setParameter("meetingId", meetingId);
+		
+		query.executeUpdate();
 	}
 }

@@ -40,12 +40,11 @@ public class MeetingController {
 		
 		User user = (User)request.getSession().getAttribute("user");
 		
-		List<Meeting> meetings = new ArrayList<Meeting>();
-		List<Integer> meetingsSignedUpTo = new ArrayList<Integer>();
+		List<Integer> meetingsSignedUpTo = new ArrayList<>();
 		if ("0".equals(user.getIsAdmin())) {
 			meetingsSignedUpTo = meetingUserService.getMeetingsForUser(user.getId());
 		}
-		meetings = meetingService.getMeetings();
+		List<Meeting> meetings = meetingService.getMeetings();
 
 		model.addAttribute("meetings", meetings);
 		model.addAttribute("meetingsSignedUpTo", meetingsSignedUpTo);

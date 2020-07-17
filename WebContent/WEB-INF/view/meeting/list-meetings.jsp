@@ -13,16 +13,7 @@
 	<c:set var="lastname" value="${user.lastname}" />
 	<c:set var="isAdmin" value="${user.isAdmin}" />
 	<c:set var="Admin" value="${isAdmin == 1}" />
-	
 
-	${firstname}, ${lastname}, ${isAdmin}<br>
-	${user.firstname}, ${user.lastname}, ${user.isAdmin}
-	
-	<script type="text/javascript">
-		document.getElementById("test").innerHTML = sessionStorage.getItem("id");
-	</script>
-	
-	
 	
 	<h2>Veranstaltungen</h2>
 	
@@ -31,7 +22,6 @@
 	<c:if test="${Admin}">
 		<input type="button" value="Veranstaltung hinzufügen" onclick="window.location.href='showAddPage'; return false;" />
 	</c:if>
-	
 	
 	Angemeldet als 
 		<c:if test="${Admin}">
