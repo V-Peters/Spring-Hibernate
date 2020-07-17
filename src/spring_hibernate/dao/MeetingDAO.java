@@ -33,7 +33,7 @@ public class MeetingDAO {
 		
 		currentSession.saveOrUpdate(meeting);
 		
-		Query query = currentSession.createQuery("update Meeting set last_updated=now() where id=:meetingId");
+		Query<?> query = currentSession.createQuery("update Meeting set last_updated=now() where id=:meetingId");
 		query.setParameter("meetingId", meeting.getId());
 		
 		query.executeUpdate();
@@ -52,7 +52,7 @@ public class MeetingDAO {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		Query query = currentSession.createQuery("delete from Meeting where id=:meetingId");
+		Query<?> query = currentSession.createQuery("delete from Meeting where id=:meetingId");
 		query.setParameter("meetingId", id);
 		
 		query.executeUpdate();
@@ -62,7 +62,7 @@ public class MeetingDAO {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		Query query = currentSession.createQuery("update Meeting set last_updated=now(), display=:notDisplay where id=:meetingId");
+		Query<?> query = currentSession.createQuery("update Meeting set last_updated=now(), display=:notDisplay where id=:meetingId");
 		query.setParameter("meetingId", id);
 		query.setParameter("notDisplay", !display);
 		

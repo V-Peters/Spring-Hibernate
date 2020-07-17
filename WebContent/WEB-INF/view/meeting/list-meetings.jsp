@@ -94,11 +94,9 @@
 					<td align="center">
 						<c:if test="${tempMeeting.isDisplay()}">
 							<a href="${changeDisplayLink}">Ja</a>
-							<!--<input type="checkbox" name="meetingId" value="${tempMeeting.id}" checked="checked" onclick="${changeDisplayLink}" />-->
 						</c:if>
 						<c:if test="${not tempMeeting.isDisplay()}">
 							<a href="${changeDisplayLink}">Nein</a>
-							<!--<input type="checkbox" name="meetingId" value="${tempMeeting.id}" onclick="${changeDisplayLink}" />-->
 						</c:if>
 						<input type="hidden" name="display${counter}hidden" value="${tempMeeting.id}" />
 					</td>
@@ -110,11 +108,9 @@
 						<td align="center">
 							<c:if test="${meetingsSignedUpTo.contains(tempMeeting.id)}">
 								<a href="${signOutLink}">Ja</a>
-								<!--<input type="checkbox" name="meetingId" value="${tempMeeting.id}" checked="checked" onclick="${changeDisplayLink}" />-->
 							</c:if>
 							<c:if test="${not meetingsSignedUpTo.contains(tempMeeting.id)}">
 								<a href="${signUpLink}">Nein</a>
-								<!--<input type="checkbox" name="meetingId" value="${tempMeeting.id}" onclick="${changeDisplayLink}" />-->
 							</c:if>
 						</td>
 					</c:if>
@@ -123,7 +119,5 @@
 			</c:if>
 		</c:forEach>
 	</table>
-	<input type="hidden" name="end" value="${counter}" />
-
 </body>
 </html>

@@ -57,10 +57,5 @@ public class Meeting {
 	public void setDisplay(boolean display) {
 		this.display = display;
 	}
-
-	@Override
-	public String toString() {
-		return "Meeting [id=" + id + ", name=" + name + ", datetime=" + datetime + ", display=" + display + "]";
-	}
 	
 }

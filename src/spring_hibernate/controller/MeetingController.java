@@ -36,7 +36,7 @@ public class MeetingController {
 	HttpServletRequest request;
 	
 	@GetMapping("/list")
-	public String listMeetings(Model model, RedirectAttributes redirectAttribute, HttpServletRequest request) {
+	public String listMeetings(Model model, HttpServletRequest request) {
 		
 		User user = (User)request.getSession().getAttribute("user");
 		
@@ -88,10 +88,8 @@ public class MeetingController {
 	}
 	
 	@GetMapping("/changeDisplay")
-	public String changeDisplay(@ModelAttribute("user") User user, @RequestParam("meetingId") int id, @RequestParam("displayValue") boolean display, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+	public String changeDisplay( @RequestParam("meetingId") int id, @RequestParam("displayValue") boolean display) {
 		meetingService.changeDisplay(id, display);
-		
-		redirectAttributes.addAllAttributes(request.getParameterMap());
 		
 		return "redirect:/meeting/list";
 	}

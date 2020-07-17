@@ -55,7 +55,7 @@ public class MeetingUserDAO {
 
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		Query query = currentSession.createQuery("delete from MeetingUser where idUser=:userId and idMeeting=:meetingId");
+		Query<?> query = currentSession.createQuery("delete from MeetingUser where idUser=:userId and idMeeting=:meetingId");
 		query.setParameter("userId", userId);
 		query.setParameter("meetingId", meetingId);
 		

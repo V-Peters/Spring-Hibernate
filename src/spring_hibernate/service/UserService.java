@@ -33,9 +33,5 @@ public class UserService {
 	public void registerUser(User registerUser) {
 		userDAO.registerUser(registerUser);
 	}
-
-	@Transactional
-	public boolean isThereAUser(String username) {
-		return userDAO.isThereAUser(username);
-	}
+	
 }

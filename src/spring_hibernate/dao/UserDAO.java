@@ -40,11 +40,20 @@ public class UserDAO {
 		queryFirstname.setParameter(TEMPUSERNAME, tempUser.getUsername());
 		queryLastname.setParameter(TEMPUSERNAME, tempUser.getUsername());
 		queryIsAdmin.setParameter(TEMPUSERNAME, tempUser.getUsername());
+
+		int id = 0;
+		String firstname = null;
+		String lastname = null;
+		String isAdmin = null;
 		
-		int id = queryId.getSingleResult();
-		String firstname = queryFirstname.getSingleResult();
-		String lastname = queryLastname.getSingleResult();
-		String isAdmin = queryIsAdmin.getSingleResult();
+		try {
+			id = queryId.getSingleResult();
+			firstname = queryFirstname.getSingleResult();
+			lastname = queryLastname.getSingleResult();
+			isAdmin = queryIsAdmin.getSingleResult();
+		} catch (Exception e) {
+			System.err.println("KEIN USER MIT DIESEM BENUTZERNAMEN GEFUNDEN");
+		}
 		
 		User user = new User(id, firstname, lastname, isAdmin);
 		
@@ -68,27 +77,4 @@ public class UserDAO {
 		
 	}
 
-	public boolean isThereAUser(String username) {
-		
-		boolean isThereAUser = false;
-		
-		Session currentSession = sessionFactory.getCurrentSession();
-		
-		Query<User> query = currentSession.createQuery("from User where username=:username", User.class);
-		query.setParameter("username", username);
-		
-		User user = null;
-		
-		try {
-			user = query.getSingleResult();
-		} catch (Exception e) {
-			System.err.println("KEIN USER MIT DIESEM BENUTZERNAMEN GEFUNDEN");
-		}
-		
-		if (user != null) {
-			isThereAUser = true;
-		}
-		
-		return isThereAUser;
-	}
 }

@@ -7,33 +7,9 @@
 <head>
 	<title>User Registrierung</title>
 	
-	<script type="text/javascript">
-	
-		function passwordCheck() {
-			
-			var password = document.getElementById('password');
-			var passwordCheck = document.getElementById('passwordCheck');
-
-			var checkPasswordValidity = function() {
-			    if (password.value != passwordCheck.value) {
-			        passwordCheck.setCustomValidity('Passwörter müssen übereinstimmen!');
-			    } else {
-			        passwordCheck.setCustomValidity('');
-			    }        
-			};
-	
-			password.addEventListener('change', checkPasswordValidity);
-			passwordCheck.addEventListener('change', checkPasswordValidity);
-			
-		}
-	
-	</script>
-	
 </head>
 
 <body>
-
-<!--	<div id="result">TEST</div>-->
 
 	<h2>User Registrierung</h2>
 
@@ -52,18 +28,14 @@
 			<tbody>
 				<tr>
 					<td> Benutzername: </td>
-					<td><form:input path="username" required="required" /></td>				<!-- minlength="4" --> 
+					<td><form:input path="username" required="required" minlength="4" /></td> 
 					<td>${errorMessage}</td>
 				</tr>
 				<tr>
 					<td> Passwort: </td>
 					<td><form:input id="password" type="password" path="password" required="required" /></td>
 				</tr>
-	<!--			<tr>
-					<td> Passwort besätigen: </td>
-					<td><input id="passordCheck" type="password" required="required" onkeyup="passwordCheck()"/></td>
-				</tr>
-	-->			<tr>
+				<tr>
 					<td>
 						<br>
 					</td>
