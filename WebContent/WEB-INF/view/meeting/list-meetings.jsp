@@ -12,22 +12,21 @@
 	<c:set var="firstname" value="${user.firstname}" />
 	<c:set var="lastname" value="${user.lastname}" />
 	<c:set var="isAdmin" value="${user.isAdmin}" />
-	<c:set var="Admin" value="${isAdmin == 1}" />
-
+	<c:set var="admin" value="${isAdmin == 1}" />
 	
 	<h2>Veranstaltungen</h2>
 	
 	<hr>
 	
-	<c:if test="${Admin}">
+	<c:if test="${admin}">
 		<input type="button" value="Veranstaltung hinzufügen" onclick="window.location.href='showAddPage'; return false;" />
 	</c:if>
 	
 	Angemeldet als 
-		<c:if test="${Admin}">
-			Admin
+		<c:if test="${admin}">
+			Administrator
 		</c:if>
-		<c:if test="${!Admin}">
+		<c:if test="${!admin}">
 			${firstname} ${lastname}
 		</c:if>
 	<a href="../user/logout">Logout</a>
@@ -39,18 +38,18 @@
 			<th width=700>Veranstaltungsname</th>
 			<th>Datum</th>
 			<th>Uhrzeit</th>
-			<c:if test="${Admin}">
+			<c:if test="${admin}">
 				<th>Aktion</th>
 				<th>Für User sichtbar</th>
 				<th>Teilnehmerliste</th>
 			</c:if>
-			<c:if test="${!Admin}">
+			<c:if test="${!admin}">
 				<th>An Veranstaltung teilnehmen</th>
 			</c:if>
 		</tr>
 		<c:set var="counter" value="${1}" />
 		<c:forEach var="tempMeeting" items="${meetings}">
-			<c:if test="${Admin or tempMeeting.display}">
+			<c:if test="${admin or tempMeeting.display}">
 
 				<c:url var="updateLink" value="showUpdatePage">
 					<c:param name="meetingId" value="${tempMeeting.id}" />
@@ -85,7 +84,7 @@
 					<td>${tempMeeting.getDatetime().substring(8, 10)}.${tempMeeting.getDatetime().substring(5, 7)}.${tempMeeting.getDatetime().substring(0, 4)}</td>
 					<td>${tempMeeting.getDatetime().substring(10, 16)} Uhr</td>
 					
-					<c:if test="${Admin}">
+					<c:if test="${admin}">
 					<td>
 						<a href="${updateLink}">Bearbeiten</a>
 						 | 
@@ -93,10 +92,10 @@
 					</td>
 					<td align="center">
 						<c:if test="${tempMeeting.isDisplay()}">
-							<a href="${changeDisplayLink}">Ja</a>
+							<input type="checkbox" name="meetingId" value="${tempMeeting.id}" checked="checked" onclick="window.location.href='${changeDisplayLink}'" />
 						</c:if>
 						<c:if test="${not tempMeeting.isDisplay()}">
-							<a href="${changeDisplayLink}">Nein</a>
+							<input type="checkbox" name="meetingId" value="${tempMeeting.id}" onclick="window.location.href='${changeDisplayLink}'" />
 						</c:if>
 						<input type="hidden" name="display${counter}hidden" value="${tempMeeting.id}" />
 					</td>
@@ -104,13 +103,13 @@
 						<a href="${listParticipantsLink}">anzeigen</a>
 					</td>
 					</c:if>
-					<c:if test="${!Admin}">
+					<c:if test="${!admin}">
 						<td align="center">
 							<c:if test="${meetingsSignedUpTo.contains(tempMeeting.id)}">
-								<a href="${signOutLink}">Ja</a>
+								<input type="checkbox" name="meetingId" value="${tempMeeting.id}" checked="checked" onclick="window.location.href='${signOutLink}'" />
 							</c:if>
 							<c:if test="${not meetingsSignedUpTo.contains(tempMeeting.id)}">
-								<a href="${signUpLink}">Nein</a>
+								<input type="checkbox" name="meetingId" value="${tempMeeting.id}" onclick="window.location.href='${signUpLink}'" />
 							</c:if>
 						</td>
 					</c:if>
