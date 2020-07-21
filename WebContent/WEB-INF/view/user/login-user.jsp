@@ -32,10 +32,12 @@
 				<tr>
 					<td><label>Benutzername:</label></td>
 					<td><form:input path="username" required="required" /></td>
+					<td>${errorMessageUsername}</td>
 				</tr>
 				<tr>
 					<td><label>Passwort:</label></td>
 					<td><form:input type="password" path="password" required="required" /></td>
+					<td>${errorMessagePassword}</td>
 				</tr>
 			</tbody>
 		</table>

@@ -40,15 +40,15 @@ public class UserController {
 	}
 	
 	@PostMapping("/registerUser")
-	public String registerUser(@ModelAttribute("registerUser") User registerUser, RedirectAttributes redirectAttributes) {
+	public String registerUser(@ModelAttribute("registerUser") User registerUser, RedirectAttributes redirectAttribute) {
 		
 		if (userService.getUser(registerUser).getId() != 0) {
-			redirectAttributes.addFlashAttribute("errorMessage", "Der Benutzername \"" + registerUser.getUsername() + "\" ist bereits vergeben.");
-			redirectAttributes.addFlashAttribute("user", registerUser);
+			redirectAttribute.addFlashAttribute("errorMessage", "Der Benutzername \"" + registerUser.getUsername() + "\" ist bereits vergeben.");
+			redirectAttribute.addFlashAttribute("user", registerUser);
 		} else {
 			userService.registerUser(registerUser);
 			
-			redirectAttributes.addFlashAttribute(registerUser);
+			redirectAttribute.addFlashAttribute(registerUser);
 			
 			return "redirect:getUser";
 		}
@@ -56,13 +56,19 @@ public class UserController {
 	}
 	
 	@PostMapping("/loginUser")
-	public String loginUser(@ModelAttribute("loginUser") User loginUser, RedirectAttributes redirectAttribute) {
+	public String loginUser(@ModelAttribute("loginUser") User loginUser, RedirectAttributes redirectAttribute, Model model) {
 		
-		if (userService.checkPassword(loginUser)) {
-			
-			redirectAttribute.addFlashAttribute("user", loginUser);
-			
-			return "redirect:getUser";
+		if (userService.getUser(loginUser).getId() != 0) {
+			if (userService.checkPassword(loginUser)) {
+				
+				redirectAttribute.addFlashAttribute("user", loginUser);
+				
+				return "redirect:getUser";
+			} else {
+				model.addAttribute("errorMessagePassword", "Falsches Password für diesen Benutzernamen.");
+			}
+		} else {
+			model.addAttribute("errorMessageUsername", "Es gibt keinen Benutzer mit diesem Namen.");
 		}
 		return "user/login-user";
 	}
