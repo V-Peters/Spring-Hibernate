@@ -43,8 +43,6 @@ public class UserController {
 	public String registerUser(@ModelAttribute("registerUser") User registerUser, RedirectAttributes redirectAttributes) {
 		
 		if (userService.getUser(registerUser).getId() != 0) {
-			System.out.println("es gibt bereits einen Benutzer mit diesem Namen.");
-			
 			redirectAttributes.addFlashAttribute("errorMessage", "Der Benutzername \"" + registerUser.getUsername() + "\" ist bereits vergeben.");
 			redirectAttributes.addFlashAttribute("user", registerUser);
 		} else {
