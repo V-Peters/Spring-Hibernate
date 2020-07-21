@@ -61,4 +61,15 @@ public class MeetingUserDAO {
 		
 		query.executeUpdate();
 	}
+
+	public void deleteMeeting(int id) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Query<?> query = currentSession.createQuery("delete from MeetingUser where idMeeting=:meetingId");
+		query.setParameter("meetingId", id);
+		
+		query.executeUpdate();
+		
+	}
 }

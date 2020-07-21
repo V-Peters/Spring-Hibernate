@@ -80,6 +80,7 @@ public class MeetingController {
 	public String deleteMeeting(@RequestParam("meetingId") int id) {
 		
 		meetingService.deleteMeeting(id);
+		meetingUserService.deleteMeeting(id);
 		
 		return "redirect:/meeting/list";
 	}

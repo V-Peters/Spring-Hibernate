@@ -35,4 +35,9 @@ public class MeetingUserService {
 	public void signOut(int userId, int meetingId) {
 		meetingUserDAO.signOut(userId, meetingId);
 	}
+
+	@Transactional
+	public void deleteMeeting(int id) {
+		meetingUserDAO.deleteMeeting(id);
+	}
 }
